@@ -56,3 +56,26 @@ resource "azurerm_virtual_hub_connection" "region2-SpokeB" {
   virtual_hub_id            = azurerm_virtual_hub.region2-vhub1.id
   remote_virtual_network_id = azurerm_virtual_network.region2-vnet1.id
 }
+
+# ExpressRoute connectivity
+
+resource "azurerm_express_route_gateway" "region1-er-gateway-01" {
+  name                = "${var.region1}-er-gateway-01"
+  resource_group_name = azurerm_resource_group.region1-rg1.name
+  location            = var.region1
+  virtual_hub_id      = azurerm_virtual_hub.region1-vhub1.id
+  scale_units         = 4
+  tags = {
+    environment = var.environment_tag
+  }
+}
+resource "azurerm_express_route_gateway" "region1-er-gateway-02" {
+  name                = "${var.region1}-er-gateway-01"
+  resource_group_name = azurerm_resource_group.region1-rg1.name
+  location            = var.region1
+  virtual_hub_id      = azurerm_virtual_hub.region1-vhub1.id
+  scale_units         = 4
+  tags = {
+    environment = var.environment_tag
+  }
+}
